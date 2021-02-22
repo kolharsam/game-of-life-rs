@@ -1,0 +1,14 @@
+name: gol
+version: "0.0.1"
+about: Simulate Conway's Game of Life on the command line
+args:
+    - rows:
+        short: r
+        long: rows
+        about: "Sets the number of rows (default: 50)"
+        takes_value: true
+    - columns:
+        short: c
+        long: columns
+        about: "Sets the number of columns (default: 50)"
+        takes_value: true
