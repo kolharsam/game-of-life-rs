@@ -1,10 +1,10 @@
-use std::io::{stdout, Write};
-use clap::{App, load_yaml};
+use clap::{load_yaml, App};
 use crossterm::{
-    event, execute,
+    execute,
     style::{Color, Print, ResetColor, SetBackgroundColor, SetForegroundColor},
-    ExecutableCommand, Result,
+    Result,
 };
+use std::io::stdout;
 
 // All known options on the CLI
 static ROWS: &str = "rows";
@@ -15,7 +15,7 @@ fn main() -> Result<()> {
     let matches = App::from(yaml).get_matches();
     let mut grid_rows = "50";
     let mut grid_cols = "50";
-    
+
     if let Some(i) = matches.value_of(ROWS) {
         grid_rows = i;
         println!("Value for rows: {}", i);
@@ -24,12 +24,15 @@ fn main() -> Result<()> {
         grid_cols = i;
         println!("Value for columns: {}", i);
     }
-    
+
     execute!(
         stdout(),
         SetForegroundColor(Color::Blue),
         SetBackgroundColor(Color::Green),
-        Print(format!("You have selected {} rows and {} columns", grid_rows, grid_cols)),
+        Print(format!(
+            "You have selected {} rows and {} columns",
+            grid_rows, grid_cols
+        )),
         ResetColor
     )?;
 
