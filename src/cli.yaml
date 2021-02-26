@@ -12,3 +12,7 @@ args:
         long: columns
         about: "Sets the number of columns (default: 50)"
         takes_value: true
+    - delay:
+        long: delay
+        about: "Describes the duration of time between updates (default: 1 second)"
+        takes_value: true

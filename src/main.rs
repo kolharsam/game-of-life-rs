@@ -13,7 +13,7 @@ mod utils;
 const ONE_SECOND: time::Duration = time::Duration::from_secs(1);
 
 fn main() -> Result<()> {
-    let (grid_rows, grid_cols) = cli::load_game();
+    let (grid_rows, grid_cols, time_delay) = cli::load_game();
 
     let new_start_set = utils::randomize_state(grid_rows, grid_cols);
 
@@ -34,7 +34,7 @@ fn main() -> Result<()> {
         if number == 25 {
             break;
         }
-        thread::sleep(ONE_SECOND);
+        thread::sleep(ONE_SECOND * time_delay);
     }
 
     Ok(())
