@@ -1,4 +1,5 @@
 use crate::game;
+use clap::ArgMatches;
 use rand::Rng;
 use std::collections::HashSet;
 
@@ -20,6 +21,17 @@ pub fn randomize_state(rows: u32, cols: u32) -> HashSet<game::Coordinate> {
     }
 
     new_set
+}
+
+// TODO: write good set of tests for this
+pub fn parse_cli_flag(flag_matches: &ArgMatches, flag: &str, default: &str) -> u32 {
+    let mut flag_value = default;
+
+    if let Some(flag_match) = flag_matches.value_of(flag) {
+        flag_value = flag_match;
+    }
+
+    convert_to_u32(flag_value)
 }
 
 #[cfg(test)]
