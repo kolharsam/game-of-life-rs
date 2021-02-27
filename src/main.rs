@@ -1,4 +1,5 @@
 use crossterm::{
+    cursor::MoveToPreviousLine,
     execute,
     style::Print,
     terminal::{Clear, ClearType},
@@ -13,25 +14,19 @@ mod utils;
 const ONE_SECOND: time::Duration = time::Duration::from_secs(1);
 
 fn main() -> Result<()> {
-    let (grid_rows, grid_cols, time_delay) = cli::load_game();
+    let (grid_rows, grid_cols, time_delay, states) = cli::load_game_info();
+    let game_grid = game::Grid::new(grid_rows, grid_cols);
+    let mut counter = 0;
 
-    let new_start_set = utils::randomize_state(grid_rows, grid_cols);
-
-    let mut number = 0;
-    let mut number2 = 100;
     loop {
         execute!(
             stdout(),
             Clear(ClearType::All),
-            Print(format!(
-                "\t\t{}------{:?}-----{}\n",
-                number, new_start_set, number2
-            )),
-            // MoveToPreviousLine(1)
+            Print(game_grid.print_grid_state(counter)),
+            MoveToPreviousLine(1),
         )?;
-        number += 1;
-        number2 -= 2;
-        if number == 25 {
+        counter += 1;
+        if counter == states {
             break;
         }
         thread::sleep(ONE_SECOND * time_delay);
