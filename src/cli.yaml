@@ -16,3 +16,8 @@ args:
         long: delay
         about: "Describes the duration of time between updates (default: 1 second)"
         takes_value: true
+    - states:
+        short: st
+        long: states
+        about: "Maximum number of states to be iterated (default: 20)"
+        takes_value: true
