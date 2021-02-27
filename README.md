@@ -21,5 +21,6 @@ OPTIONS:
     -c, --columns <columns>    Sets the number of columns (default: 50)
         --delay <delay>        Describes the duration of time between updates (default: 1 second)
     -r, --rows <rows>          Sets the number of rows (default: 50)
+    -s, --states <states>      Maximum number of states to be iterated (default: 20)
 
 ```
