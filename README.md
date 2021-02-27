@@ -1,6 +1,8 @@
 # game-of-life-rs
 An implementation of Game of Life as CLI
 
+This project uses Rust `v1.50.0`
+
 ## How to use this CLI?
 
 ```shell
