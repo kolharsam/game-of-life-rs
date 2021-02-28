@@ -98,13 +98,90 @@ impl Grid {
     }
 }
 
-// NOTE: add tests for the next state function
+// NOTE: these tests are entirely based on the fact that there are
+// some well-known configuration of cells that are periodic or static
+// and hence are the subject of the tests written here
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    // TODO: add test with the cyclic patterns?
-    fn test_calculate_next_state() {
-        
+    #[test]
+    fn test_calculate_next_state_blinker() {
+        let blinker_coords = [Coordinate(1, 1), Coordinate(2, 1), Coordinate(3, 1)];
+        let blinker_results = [Coordinate(2, 0), Coordinate(2, 1), Coordinate(2, 2)];
+        let blinker_state: HashSet<Coordinate> = blinker_coords.iter().cloned().collect();
+        let blinker_state_results: HashSet<Coordinate> = blinker_results.iter().cloned().collect();
+
+        let mut new_grid = Grid {
+            rows: 4,
+            columns: 4,
+            cells: blinker_state,
+        };
+
+        new_grid.calculate_next_state();
+
+        assert_eq!(blinker_state_results, new_grid.cells);
+    }
+
+    #[test]
+    fn test_calculate_next_state_block() {
+        let block_coords = [
+            Coordinate(1, 1),
+            Coordinate(1, 2),
+            Coordinate(2, 1),
+            Coordinate(2, 2),
+        ];
+        let block_state: HashSet<Coordinate> = block_coords.iter().cloned().collect();
+        let block_state_result = block_state.clone();
+
+        let mut new_grid = Grid {
+            rows: 4,
+            columns: 4,
+            cells: block_state,
+        };
+
+        new_grid.calculate_next_state();
+
+        assert_eq!(block_state_result, new_grid.cells);
+    }
+
+    #[test]
+    fn test_calculate_next_state_glider() {
+        let glider_coords = [
+            Coordinate(0, 1),
+            Coordinate(1, 2),
+            Coordinate(2, 0),
+            Coordinate(2, 1),
+            Coordinate(2, 2),
+        ];
+        let glider_results1 = [
+            Coordinate(1, 0),
+            Coordinate(1, 2),
+            Coordinate(2, 2),
+            Coordinate(2, 1),
+            Coordinate(3, 1),
+        ];
+        let glider_results2 = [
+            Coordinate(2, 0),
+            Coordinate(3, 2),
+            Coordinate(3, 1),
+            Coordinate(1, 2),
+            Coordinate(2, 2),
+        ];
+        let glider_state: HashSet<Coordinate> = glider_coords.iter().cloned().collect();
+        let glider_state_results1: HashSet<Coordinate> = glider_results1.iter().cloned().collect();
+        let glider_state_results2: HashSet<Coordinate> = glider_results2.iter().cloned().collect();
+
+        let mut new_grid = Grid {
+            rows: 4,
+            columns: 4,
+            cells: glider_state,
+        };
+
+        new_grid.calculate_next_state();
+        assert_eq!(glider_state_results1, new_grid.cells);
+
+        new_grid.calculate_next_state();
+        assert_eq!(glider_state_results2, new_grid.cells);
     }
 }
