@@ -97,3 +97,14 @@ impl Grid {
         final_state_str
     }
 }
+
+// NOTE: add tests for the next state function
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // TODO: add test with the cyclic patterns?
+    fn test_calculate_next_state() {
+        
+    }
+}
