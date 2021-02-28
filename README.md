@@ -7,7 +7,7 @@ This project uses Rust `v1.50.0`
 
 ```shell
 
-gol 0.0.1
+gol 0.1.0
 Simulate Conway's Game of Life on the command line
 
 USAGE:
