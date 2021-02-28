@@ -1,5 +1,5 @@
 name: gol
-version: "0.0.1"
+version: "0.1.0"
 about: Simulate Conway's Game of Life on the command line
 args:
     - rows:
